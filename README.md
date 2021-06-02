@@ -132,3 +132,22 @@ usersRef
 ```
 
 _Utilizar `then` y `catch` no es necesario pero ayuda a evitar errores._
+
+## Obtener datos de una colección
+
+```ts
+// Obtener datos de una colección
+usersRef
+  // onSnapshot es un callback que se va a ejecutar cada vez que la informacion cambie en la BD
+  .onSnapshot((snap) => {
+    const users: any[] = [];
+
+    snap.forEach((childSnap) => {
+      users.push({
+        id: childSnap.id,
+        ...childSnap.data(),
+      });
+    });
+    console.log(users);
+  });
+```

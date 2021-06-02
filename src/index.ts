@@ -10,9 +10,17 @@ const user = {
 // Referencia a la colección users
 const usersRef = db.collection("users");
 
-// Borrar datos de una colección
+// Obtener datos de una colección
 usersRef
-  .doc("SdFvvlTZsiHs9KrNnEre")
-  .delete()
-  .then(() => console.log("Borrado"))
-  .catch((error) => console.log(error));
+  // onSnapshot es un callback que se va a ejecutar cada vez que la informacion cambie en la BD
+  .onSnapshot((snap) => {
+    const users: any[] = [];
+
+    snap.forEach((childSnap) => {
+      users.push({
+        id: childSnap.id,
+        ...childSnap.data(),
+      });
+    });
+    console.log(users);
+  });
