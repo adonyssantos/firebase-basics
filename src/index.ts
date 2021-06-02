@@ -7,10 +7,8 @@ const user = {
   student: true,
 };
 
-// Insertar datos en una colección
-db.collection("users")
-  .add(user)
-  .then((docRef) => {
-    console.log(docRef);
-  })
-  .catch((error) => console.log("error", error));
+// Referencia a la colección users
+const usersRef = db.collection("users");
+
+// Actualizar datos de una colección
+usersRef.doc("SdFvvlTZsiHs9KrNnEre").update({ student: true });

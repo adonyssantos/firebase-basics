@@ -63,6 +63,8 @@ export default db;
 
 ## Insertar datos en una colección
 
+Podemos relacionar **colección** de Firebase con una Tabla de SQL. Esto no es correcto pero para entenderlo mejor.
+
 **Nota:** _Para insertar datos debemos enviarle un objecto literal/sencillo. No podemos pasarle funciones, por ejemplo._
 
 ```ts
@@ -83,3 +85,35 @@ db.collection("users")
   })
   .catch((error) => console.log("error", error));
 ```
+
+## Actualizar datos de una colección
+
+### Referencia a una colección
+
+Si vamos a reutilizar una colección podemos almacenarla en una variable:
+
+```ts
+// Referencia a la colección users
+const usersRef = db.collection("users");
+```
+
+De esta forma no tenemos que llamar la misma colección varias veces.
+
+```ts
+usersRef.add({...})
+```
+
+No existen un metodo `update` para la referencia de una colección, por lo que hay que llamarla por el `id`.
+
+```ts
+// Referencia a la colección users
+const usersRef = db.collection("users");
+
+// Actualizar datos de una colección
+usersRef.doc("SdFvvlTZsiHs9KrNnEre").update({ student: true });
+
+// También podemos utilizar .set, pero es una forma destructiva, lo que quiere decir que borrara los otros datos
+usersRef.doc("SdFvvlTZsiHs9KrNnEre").set({ student: true });
+```
+
+_Se recomienda utilizar `then` y `catch` para evitar errores._
