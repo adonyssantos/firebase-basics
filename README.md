@@ -135,19 +135,34 @@ _Utilizar `then` y `catch` no es necesario pero ayuda a evitar errores._
 
 ## Obtener datos de una colección
 
+### Utilizando `onSnapshot`
+
+**onSnapshot** es un callback que se va a ejecutar cada vez que la informacion cambie dentro de la Base de Datos.
+
 ```ts
 // Obtener datos de una colección
-usersRef
-  // onSnapshot es un callback que se va a ejecutar cada vez que la informacion cambie en la BD
-  .onSnapshot((snap) => {
-    const users: any[] = [];
+usersRef.onSnapshot((snap) => {
+  const users: any[] = [];
 
-    snap.forEach((childSnap) => {
-      users.push({
-        id: childSnap.id,
-        ...childSnap.data(),
-      });
+  snap.forEach((childSnap) => {
+    users.push({
+      id: childSnap.id,
+      ...childSnap.data(),
     });
-    console.log(users);
   });
+  console.log(users);
+});
+```
+
+### Optimizando el código
+
+Como el bloque de código para obtener los datos de una colección lo vamos a utilizar varias veces, podemos separarlo como una `función/helpers` así solo tenemos que hacer referencia a esa función para obtener los datos.
+
+### Utilizando `get`
+
+**get** obtiene la información una sola vez cuando se ejecuta el código.
+
+```ts
+// Obtener datos de una colección con get
+usersRef.get().then(showDocs);
 ```
