@@ -166,3 +166,47 @@ Como el bloque de código para obtener los datos de una colección lo vamos a ut
 // Obtener datos de una colección con get
 usersRef.get().then(showDocs);
 ```
+
+### Indices y clausula `where`
+
+Podemos utilizar el metodo `where` para crear condicionales en nuestras consultas. Tanto para consultas `simple` como para consultas `compuestas`.
+
+**Consulta simple:** son todas aquellas que utilizan un solo campo para realizar la consulta.
+
+**Consulta compuestas:** son todas aquellas que utilizan dos o más campos para realizar la consulta.
+
+#### Consultas simple
+
+```ts
+// Obtener datos de una colección con condicionales
+
+// Obtiene la data if student === true
+usersRef.where("student", "==", true).get().then(showDocs);
+
+// Obtiene la data if salary >= 1800
+usersRef.where("salary", ">=", 1800).get().then(showDocs);
+
+// Obtiene la data if salary >= 1800 && salary <= 2800
+usersRef
+  .where("salary", ">=", 1800)
+  .where("salary", "<=", 2800)
+  .get()
+  .then(showDocs);
+```
+
+#### Consulta compuestas
+
+```ts
+// Obtiene la data if salary >= 500 && student == true
+usersRef
+  .where("salary", ">=", 500)
+  .where("student", "==", true)
+  .get()
+  .then(showDocs); // Esto es un query compuesto por lo que hay que crear un índice
+```
+
+Para crear el índice existen dos formas:
+
+**Manual:** dentro de `Cloud Firestore` vamos a `Index` y podemos agregar el nombre y cada uno de los campos que necesitamos para nuestra consulta.
+
+**Automatica:** al ejecutar nuestro código nos muetra un error por la consola donde hay un link. Solo tenemos que darle click al link y darle a `Create Index`.
