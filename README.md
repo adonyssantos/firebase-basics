@@ -2,6 +2,8 @@
 
 Este proyecto es del curso en [YouTube](https://www.youtube.com/playlist?list=PLCKuOXG0bPi29EkcAuVCln9ISbExcQk66) de Fernado Herrera.
 
+**API Documentation** [https://googleapis.dev/nodejs/firestore/latest/CollectionReference.html](https://googleapis.dev/nodejs/firestore/latest/CollectionReference.html)
+
 ## Scripts:
 
 Recuerden reconstruir los módulos de Node
@@ -43,10 +45,41 @@ firebase.initializeApp(firebaseConfig);
 export default firebase.firestore();
 ```
 
-*En este caso las variables estan publica porque eliminare este proyecto una vez termiine el curso, pero la forma correcta de hacer esto es utilizando Variables de entorno, ya que estos datos son muy sensibles y cualquier persona con esto datos podria modificar nuestra BD.*
+_En este caso las variables estan publica porque eliminare este proyecto una vez termiine el curso, pero la forma correcta de hacer esto es utilizando Variables de entorno, ya que estos datos son muy sensibles y cualquier persona con esto datos podria modificar nuestra BD._
 
 Ahora debemops importar nuestra configuracion a nuestro archivo principal:
 
 ```ts
-import "./config/firebase"
+import "./config/firebase";
+```
+
+En este caso agregamos `firebase.firestore()` dentro de una variable para poderla reutilizar.
+
+```ts
+const db = firebase.firestore();
+
+export default db;
+```
+
+## Insertar datos en una colección
+
+**Nota:** _Para insertar datos debemos enviarle un objecto literal/sencillo. No podemos pasarle funciones, por ejemplo._
+
+```ts
+import db from "./config/firebase";
+
+const user = {
+  name: "Adonys",
+  age: 17,
+  title: "Frontend Developer",
+  student: true,
+};
+
+// Insertar datos en una colección
+db.collection("users")
+  .add(user)
+  .then((docRef) => {
+    console.log(docRef);
+  })
+  .catch((error) => console.log("error", error));
 ```
