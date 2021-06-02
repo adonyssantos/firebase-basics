@@ -12,20 +12,10 @@ const user = {
 // Referencia a la colección users
 const usersRef = db.collection("users");
 
-// Obtener datos de una colección con orderBy
+// Limit 
 
-// Ordena por nombre por defecto de forma ascendente
-usersRef.orderBy("name").get().then(showDocs);
+// Obtiene los 2 primeros documentos de la colección users
+usersRef.limit(2).get().then(showDocs);
 
-// Ordena por salario por defecto de forma ascendente
-usersRef.orderBy("salary").get().then(showDocs); // orderBy aplica un where de forma interna por lo que si algun documento en la BD no tiene el campo salary no saldra en la consulta
-
-// Ordena por salario de forma descendente
-usersRef.orderBy("salary", "desc").get().then(showDocs); // orderBy aplica un where de forma interna por lo que si algun documento en la BD no tiene el campo salary no saldra en la consulta
-
-// Ordena por salario de forma descendente y despues por nombre
-usersRef
-  .orderBy("salary", "desc")
-  .orderBy('name')
-  .get()
-  .then(showDocs); //En este caso tambien hay que crear un índice
+// Obtiene los 5 primeros documentos de la colección users
+usersRef.limit(5).get().then(showDocs);

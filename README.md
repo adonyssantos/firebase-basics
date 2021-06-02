@@ -234,3 +234,17 @@ usersRef
   .then(showDocs); //En este caso tambien hay que crear un índice
 
 ```
+
+## Limit y Paginación
+
+### Limit
+
+```ts
+// Limit 
+
+// Obtiene los 2 primeros documentos de la colección users
+usersRef.limit(2).get().then(showDocs);
+
+// Obtiene los 5 primeros documentos de la colección users
+usersRef.limit(5).get().then(showDocs);
+```
