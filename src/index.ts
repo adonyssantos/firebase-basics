@@ -6,29 +6,26 @@ const user = {
   age: 17,
   title: "Frontend Developer",
   student: true,
+  salary: 900,
 };
 
 // Referencia a la colección users
 const usersRef = db.collection("users");
 
-// Obtener datos de una colección con condicionales
+// Obtener datos de una colección con orderBy
 
-// Obtiene la data if student === true
-usersRef.where("student", "==", true).get().then(showDocs);
+// Ordena por nombre por defecto de forma ascendente
+usersRef.orderBy("name").get().then(showDocs);
 
-// Obtiene la data if salary >= 1800
-usersRef.where("salary", ">=", 1800).get().then(showDocs);
+// Ordena por salario por defecto de forma ascendente
+usersRef.orderBy("salary").get().then(showDocs); // orderBy aplica un where de forma interna por lo que si algun documento en la BD no tiene el campo salary no saldra en la consulta
 
-// Obtiene la data if salary >= 1800 && salary <= 2800
+// Ordena por salario de forma descendente
+usersRef.orderBy("salary", "desc").get().then(showDocs); // orderBy aplica un where de forma interna por lo que si algun documento en la BD no tiene el campo salary no saldra en la consulta
+
+// Ordena por salario de forma descendente y despues por nombre
 usersRef
-  .where("salary", ">=", 1800)
-  .where("salary", "<=", 2800)
+  .orderBy("salary", "desc")
+  .orderBy('name')
   .get()
-  .then(showDocs);
-
-// Obtiene la data if salary >= 500 && student == true
-usersRef
-  .where("salary", ">=", 500)
-  .where("student", "==", true)
-  .get()
-  .then(showDocs); // Esto es un query compuesto por lo que hay que crear un índice
+  .then(showDocs); //En este caso tambien hay que crear un índice

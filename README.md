@@ -210,3 +210,27 @@ Para crear el índice existen dos formas:
 **Manual:** dentro de `Cloud Firestore` vamos a `Index` y podemos agregar el nombre y cada uno de los campos que necesitamos para nuestra consulta.
 
 **Automatica:** al ejecutar nuestro código nos muetra un error por la consola donde hay un link. Solo tenemos que darle click al link y darle a `Create Index`.
+
+
+## orderBy
+
+```ts
+// Obtener datos de una colección con orderBy
+
+// Ordena por nombre por defecto de forma ascendente
+usersRef.orderBy("name").get().then(showDocs);
+
+// Ordena por salario por defecto de forma ascendente
+usersRef.orderBy("salary").get().then(showDocs); // orderBy aplica un where de forma interna por lo que si algun documento en la BD no tiene el campo salary no saldra en la consulta
+
+// Ordena por salario de forma descendente
+usersRef.orderBy("salary", "desc").get().then(showDocs); // orderBy aplica un where de forma interna por lo que si algun documento en la BD no tiene el campo salary no saldra en la consulta
+
+// Ordena por salario de forma descendente y despues por nombre
+usersRef
+  .orderBy("salary", "desc")
+  .orderBy('name')
+  .get()
+  .then(showDocs); //En este caso tambien hay que crear un índice
+
+```
