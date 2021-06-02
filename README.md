@@ -117,3 +117,18 @@ usersRef.doc("SdFvvlTZsiHs9KrNnEre").set({ student: true });
 ```
 
 _Se recomienda utilizar `then` y `catch` para evitar errores._
+
+## Borrar datos de una colección
+
+Para borrar datos de una colección se hace de la misma forma que con [update](#actualizar-datos-de-una-colección), se le pasa la referencia a la colección, el id del cocumento que se desea borrar y el metodo `.delete()`.
+
+```ts
+// Borrar datos de una colección
+usersRef
+  .doc("SdFvvlTZsiHs9KrNnEre")
+  .delete()
+  .then(() => console.log("Borrado"))
+  .catch((error) => console.log(error));
+```
+
+_Utilizar `then` y `catch` no es necesario pero ayuda a evitar errores._

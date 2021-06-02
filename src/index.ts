@@ -10,5 +10,9 @@ const user = {
 // Referencia a la colección users
 const usersRef = db.collection("users");
 
-// Actualizar datos de una colección
-usersRef.doc("SdFvvlTZsiHs9KrNnEre").update({ student: true });
+// Borrar datos de una colección
+usersRef
+  .doc("SdFvvlTZsiHs9KrNnEre")
+  .delete()
+  .then(() => console.log("Borrado"))
+  .catch((error) => console.log(error));
